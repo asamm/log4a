@@ -21,3 +21,27 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# ---
+
+# Android Studio (intellij IDEA)
+# https://intellij-support.jetbrains.com/entries/23393067
+*.iml
+.gradle/
+.navigation/
+build/
+captures/
+
+# IDEA stuff
+
+**/.idea/assetWizardSettings.xml
+**/.idea/copyright/
+**/.idea/caches
+**/.idea/compiler.xml
+**/.idea/encodings.xml
+**/.idea/gradle.xml
+**/.idea/libraries
+**/.idea/misc.xml
+**/.idea/modules.xml
+**/.idea/workspace.xml
+**/.idea/vcs.xml
