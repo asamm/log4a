@@ -32,6 +32,9 @@ jobs:
           git fetch --unshallow
           sudo bash -c "echo '$SIGNING_SECRET_KEY_CONTENT' | base64 -d > '$SIGNING_SECRET_KEY_RING_FILE'"
 
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
       # Public Logger
       - name: Publish `logger-asamm`
         run: ./gradlew :clean :publishReleasePublicationToMavencentralRepository
