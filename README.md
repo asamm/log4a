@@ -9,7 +9,7 @@ Add dependency to your `build.gradle` module config
 ```gradle
 dependencies {
      // get Logger
-     compile 'com.asamm:logger-asamm:[latest]'
+     compile 'com.asamm:logger:[latest]'
 }
 ```
 
