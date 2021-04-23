@@ -28,7 +28,7 @@ tasks {
 // Maven publisher
 val PUBLISH_GROUP_ID by extra("com.asamm")
 val PUBLISH_ARTIFACT_ID by extra("logger")
-val PUBLISH_VERSION by extra("1.0")
+val PUBLISH_VERSION by extra("1.1")
 apply {
     from("${rootProject.projectDir}/gradle/publish-mavencentral.gradle")
 }
