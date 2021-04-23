@@ -104,6 +104,29 @@ object Logger {
     /**
      * Log 'warning' [msg].
      *
+     * @param msg log text message, optionally with arguments
+     * @param args optional arguments that should be logged in the implementation with 'String.format' call.
+     */
+    @JvmStatic
+    fun w(msg: String, vararg args: Any) {
+        w(generateTag(), msg, args)
+    }
+
+    /**
+     * Log 'warning' [msg].
+     *
+     * @param tag tag that identify source class
+     * @param msg log text message, optionally with arguments
+     * @param args optional arguments that should be logged in the implementation with 'String.format' call.
+     */
+    @JvmStatic
+    fun w(tag: String, msg: String, vararg args: Any) {
+        w(null, tag, msg, *args)
+    }
+
+    /**
+     * Log 'warning' [msg].
+     *
      * @param ex (optional) caught exception
      * @param msg log text message, optionally with arguments
      * @param args optional arguments that should be logged in the implementation with 'String.format' call.
