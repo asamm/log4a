@@ -132,7 +132,6 @@ object Logger {
      * @param args optional arguments that should be logged in the implementation with 'String.format' call.
      */
     @JvmStatic
-    @JvmOverloads
     fun w(ex: Throwable? = null, msg: String, vararg args: Any) {
         w(ex, generateTag(), msg, args)
     }
@@ -146,7 +145,6 @@ object Logger {
      * @param args optional arguments that should be logged in the implementation with 'String.format' call.
      */
     @JvmStatic
-    @JvmOverloads
     fun w(ex: Throwable? = null, tag: String, msg: String, vararg args: Any) {
         printEx(logger, ILogger::logW, ex, tag, msg, args)
     }
