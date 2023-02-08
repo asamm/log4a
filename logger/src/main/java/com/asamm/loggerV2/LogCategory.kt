@@ -18,7 +18,7 @@ package com.asamm.loggerV2
  * @param public flag that define if category may be modified by the user
  */
 data class LogCategory(
-    var tagPrefix: String,
+    val tagPrefix: String,
     var minPriority: LogPriority = LogPriority.WARN,
     val public: Boolean = false,
     val title: CharSequence,
