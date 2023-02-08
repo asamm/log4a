@@ -96,7 +96,32 @@ object Logger {
      */
     @JvmStatic
     fun d(tag: String, msg: String, vararg args: Any) {
-        printBasic(logger, ILogger::logD, tag, msg, *args)
+        d(null, tag, msg, *args)
+    }
+
+    /**
+     * Log 'debug' [msg].
+     *
+     * @param ex (optional) caught exception
+     * @param msg log text message, optionally with arguments
+     * @param args optional arguments that should be logged in the implementation with 'String.format' call.
+     */
+    @JvmStatic
+    fun d(ex: Throwable? = null, msg: String, vararg args: Any) {
+        d(ex, generateTag(), msg, args)
+    }
+
+    /**
+     * Log 'debug' [msg].
+     *
+     * @param ex (optional) caught exception
+     * @param tag tag that identify source class
+     * @param msg log text message, optionally with arguments
+     * @param args optional arguments that should be logged in the implementation with 'String.format' call.
+     */
+    @JvmStatic
+    fun d(ex: Throwable? = null, tag: String, msg: String, vararg args: Any) {
+        printEx(logger, ILogger::logD, ex, tag, msg, args)
     }
 
     // WARNING
@@ -222,7 +247,7 @@ object Logger {
          * @param msg log text message, optionally with arguments
          * @param args optional arguments that should be logged in the implementation with 'String.format' call.
          */
-        fun logD(tag: String, msg: String, vararg args: Any)
+        fun logD(ex: Throwable? = null, tag: String, msg: String, vararg args: Any)
 
         /**
          * Log 'warning' [msg].
@@ -267,7 +292,11 @@ object Logger {
      *
      * @param extraDepthIndex extra index of stack
      */
-    private fun generateTag(extraDepthIndex: Int = 1): String {
+    @JvmStatic
+    @JvmOverloads
+    fun generateTag(extraDepthIndex: Int = 1): String {
+        // DO NOT switch this to Thread.getCurrentThread().getStackTrace(). The test will pass
+        // because Robolectric runs them on the JVM but on Android the elements are different.
         val stackTrace = Throwable().stackTrace
         if (stackTrace.size <= CALL_STACK_INDEX + extraDepthIndex) {
             // "Synthetic stacktrace didn't have enough elements: are you using proguard?"
@@ -275,6 +304,7 @@ object Logger {
         }
 
         // extract tag
+        //System.out.println("generateTag(), stack: ${Throwable().getAsText()}")
         var tag = stackTrace[CALL_STACK_INDEX + extraDepthIndex].className
         val m = ANONYMOUS_CLASS.matcher(tag)
         if (m.find()) {
@@ -294,29 +324,38 @@ object Logger {
     // PRIVATE TOOLS
     //*************************************************
 
-    private fun printBasic(logger: ILogger?,
-            logCall: ILogger.(String, String, Any) -> Unit,
-            tag: String, msg: String, vararg args: Any) {
+    private fun printBasic(
+        logger: ILogger?,
+        logCall: ILogger.(String, String, Any) -> Unit,
+        tag: String, msg: String, vararg args: Any
+    ) {
         try {
             logger?.logCall(tag, msg, args)
-                    ?: printSystemDefault(tag, msg, *args)
+                ?: printSystemDefault(tag, msg, *args)
         } catch (e: Exception) {
             printSystemSafe(tag, msg, e)
         }
     }
 
-    private fun printEx(logger: ILogger?,
-            logCall: ILogger.(Throwable?, String, String, Any) -> Unit,
-            ex: Throwable? = null, tag: String, msg: String, vararg args: Any) {
+    private fun printEx(
+        logger: ILogger?,
+        logCall: ILogger.(Throwable?, String, String, Any) -> Unit,
+        ex: Throwable? = null, tag: String, msg: String, vararg args: Any
+    ) {
         try {
             logger?.logCall(ex, tag, msg, args)
-                    ?: printSystemDefault(tag, msg, *args)
+                ?: printSystemDefault(tag, msg, *args)
         } catch (e: Exception) {
             printSystemSafe(tag, msg, e)
         }
     }
 
-    private fun printSystemDefault(tag: String, msg: String, vararg args: Any, ex: Exception? = null) {
+    private fun printSystemDefault(
+        tag: String,
+        msg: String,
+        vararg args: Any,
+        ex: Exception? = null
+    ) {
         if (ex == null) {
             println("$tag, ${msg.format(*args)}")
         } else {

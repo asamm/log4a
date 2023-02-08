@@ -1,6 +1,6 @@
 plugins {
     java
-    kotlin("jvm") version "1.4.21"
+    kotlin("jvm") version "1.7.21"
     id("org.jetbrains.dokka") version "1.4.30"
     id("io.codearte.nexus-staging") version "0.30.0"
 }
@@ -28,7 +28,7 @@ tasks {
 // Maven publisher
 val PUBLISH_GROUP_ID by extra("com.asamm")
 val PUBLISH_ARTIFACT_ID by extra("logger")
-val PUBLISH_VERSION by extra("1.1")
+val PUBLISH_VERSION by extra("2.0")
 apply {
     from("${rootProject.projectDir}/gradle/publish-mavencentral.gradle")
 }

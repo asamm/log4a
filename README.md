@@ -4,6 +4,17 @@ Logger for Asamm libraries and tools.
 
 ## Quick start
 
+Add support for JitPack to project `build.gradle`
+
+```gradle
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
 Add dependency to your `build.gradle` module config
 
 ```gradle
