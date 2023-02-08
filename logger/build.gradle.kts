@@ -1,6 +1,6 @@
 plugins {
     java
-    kotlin("jvm") version "1.4.21"
+    kotlin("jvm") version "1.7.21"
     id("org.jetbrains.dokka") version "1.4.30"
     id("maven-publish")
 }
@@ -9,7 +9,7 @@ val loggerVersion: String by project
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    testCompile("junit", "junit", "4.12")
+    testImplementation("junit", "junit", "4.13.1")
 }
 
 java {
