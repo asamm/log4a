@@ -1,3 +1,3 @@
-include(":logger")
+include("logger")
 
 rootProject.name = "logger-asamm"
