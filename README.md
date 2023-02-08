@@ -1,5 +1,6 @@
 # Logger
 
+[![](https://jitpack.io/v/asamm/logger-asamm.svg)](https://jitpack.io/#asamm/logger-asamm)
 Logger for Asamm libraries and tools.
 
 ## Quick start

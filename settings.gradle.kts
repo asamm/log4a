@@ -1,9 +1,3 @@
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-        jcenter()
-    }
-}
+include(":logger")
 
 rootProject.name = "logger-asamm"
-
